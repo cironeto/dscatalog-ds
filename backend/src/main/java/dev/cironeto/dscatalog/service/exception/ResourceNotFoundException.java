@@ -1,8 +1,8 @@
 package dev.cironeto.dscatalog.service.exception;
 
-public class EntityNotFoundException extends RuntimeException{
+public class ResourceNotFoundException extends RuntimeException{
 
-    public EntityNotFoundException(String message){
+    public ResourceNotFoundException(String message){
         super(message);
     }
 }

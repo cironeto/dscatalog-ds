@@ -3,11 +3,16 @@ package dev.cironeto.dscatalog.service;
 import dev.cironeto.dscatalog.dto.CategoryDTO;
 import dev.cironeto.dscatalog.entity.Category;
 import dev.cironeto.dscatalog.repository.CategoryRepository;
-import dev.cironeto.dscatalog.service.exception.EntityNotFoundException;
+import dev.cironeto.dscatalog.service.exception.DatabaseException;
+import dev.cironeto.dscatalog.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,7 +32,7 @@ public class CategoryService {
     @Transactional(readOnly = true)
     public CategoryDTO findById(Long id){
         Optional<Category> obj = categoryRepository.findById(id);
-        Category entity = obj.orElseThrow(() -> new EntityNotFoundException("Not found"));
+        Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Not found"));
         return new CategoryDTO(entity);
     }
 
@@ -37,5 +42,29 @@ public class CategoryService {
         entity.setName(dto.getName());
         entity = categoryRepository.save(entity);
         return new CategoryDTO(entity);
+    }
+
+    @Transactional
+    public CategoryDTO replace(Long id, CategoryDTO dto) {
+        try{
+            Category entity = categoryRepository.getOne(id);
+            entity.setName(dto.getName());
+            entity = categoryRepository.save(entity);
+            return new CategoryDTO(entity);
+        }
+        catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("ID " + id + " not found");
+        }
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        try{
+            categoryRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException("ID " + id + " not found");
+        }catch (DataIntegrityViolationException e){
+            throw new DatabaseException("Integrity violation. Cannot delete this category");
+        }
     }
 }

@@ -1,6 +1,7 @@
 package dev.cironeto.dscatalog.resource.exception;
 
-import dev.cironeto.dscatalog.service.exception.EntityNotFoundException;
+import dev.cironeto.dscatalog.service.exception.DatabaseException;
+import dev.cironeto.dscatalog.service.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,14 +13,29 @@ import java.time.Instant;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFound(EntityNotFoundException e, HttpServletRequest request) {
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
         StandardError standardError = new StandardError();
+
         standardError.setTimestamp(Instant.now());
-        standardError.setStatus(HttpStatus.NOT_FOUND.value());
+        standardError.setStatus(status.value());
         standardError.setError("Resource not found");
         standardError.setMessage(e.getMessage());
         standardError.setPath(request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
+        return ResponseEntity.status(status).body(standardError);
+    }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<StandardError> databaseException(DatabaseException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError();
+
+        standardError.setTimestamp(Instant.now());
+        standardError.setStatus(status.value());
+        standardError.setError("Database exception");
+        standardError.setMessage(e.getMessage());
+        standardError.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(standardError);
     }
 }
