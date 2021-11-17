@@ -8,14 +8,13 @@ import dev.cironeto.dscatalog.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -24,20 +23,20 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public List<CategoryDTO> findAll(){
-        List<Category> list =  categoryRepository.findAll();
-        return list.stream().map(CategoryDTO::new).collect(Collectors.toList());
+    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+        Page<Category> list = categoryRepository.findAll(pageRequest);
+        return list.map(CategoryDTO::new);
     }
 
     @Transactional(readOnly = true)
-    public CategoryDTO findById(Long id){
+    public CategoryDTO findById(Long id) {
         Optional<Category> obj = categoryRepository.findById(id);
         Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Not found"));
         return new CategoryDTO(entity);
     }
 
     @Transactional
-    public CategoryDTO save(CategoryDTO dto){
+    public CategoryDTO save(CategoryDTO dto) {
         Category entity = new Category();
         entity.setName(dto.getName());
         entity = categoryRepository.save(entity);
@@ -46,24 +45,23 @@ public class CategoryService {
 
     @Transactional
     public CategoryDTO replace(Long id, CategoryDTO dto) {
-        try{
+        try {
             Category entity = categoryRepository.getOne(id);
             entity.setName(dto.getName());
             entity = categoryRepository.save(entity);
             return new CategoryDTO(entity);
-        }
-        catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("ID " + id + " not found");
         }
     }
 
     @Transactional
     public void delete(Long id) {
-        try{
+        try {
             categoryRepository.deleteById(id);
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("ID " + id + " not found");
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Integrity violation. Cannot delete this category");
         }
     }
