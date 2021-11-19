@@ -74,8 +74,8 @@ public class ProductService {
 
     private void copyDtoToEntity(ProductDTO dto, Product entity){
         entity.setName(dto.getName());
-        entity.setDescription(entity.getDescription());
-        entity.setDate(entity.getDate());
+        entity.setDescription(dto.getDescription());
+        entity.setDate(dto.getDate());
         entity.setImgUrl(dto.getImgUrl());
         entity.setPrice(dto.getPrice());
 
