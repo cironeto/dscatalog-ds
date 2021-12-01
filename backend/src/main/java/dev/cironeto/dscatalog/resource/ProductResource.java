@@ -1,6 +1,6 @@
 package dev.cironeto.dscatalog.resource;
 
-import dev.cironeto.dscatalog.dto.ProductDTO;
+import dev.cironeto.dscatalog.dto.ProductDto;
 import dev.cironeto.dscatalog.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,19 +19,19 @@ public class ProductResource {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
-        Page<ProductDTO> list = productService.findAllPaged(pageable);
+    public ResponseEntity<Page<ProductDto>> findAll(Pageable pageable) {
+        Page<ProductDto> list = productService.findAllPaged(pageable);
         return ResponseEntity.ok(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
-        ProductDTO dto = productService.findById(id);
+    public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
+        ProductDto dto = productService.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> save(@RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDto> save(@RequestBody ProductDto dto) {
         dto = productService.save(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -42,7 +42,7 @@ public class ProductResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> replace(@PathVariable Long id, @RequestBody ProductDTO dto) {
+    public ResponseEntity<ProductDto> replace(@PathVariable Long id, @RequestBody ProductDto dto) {
         dto = productService.replace(id, dto);
         return ResponseEntity.ok().body(dto);
     }

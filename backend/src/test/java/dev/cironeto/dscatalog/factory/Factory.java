@@ -1,6 +1,6 @@
 package dev.cironeto.dscatalog.factory;
 
-import dev.cironeto.dscatalog.dto.ProductDTO;
+import dev.cironeto.dscatalog.dto.ProductDto;
 import dev.cironeto.dscatalog.entity.Category;
 import dev.cironeto.dscatalog.entity.Product;
 
@@ -16,12 +16,17 @@ public class Factory {
                 3000.0,
                 "http://img.com",
                 Instant.now());
-        product.getCategories().add(new Category(2L, "Electronics"));
+        product.getCategories().add(createCategory());
         return product;
     }
 
-    public static ProductDTO createProductDTO(){
+    public static ProductDto createProductDto(){
         Product product = createProduct();
-        return new ProductDTO(product, product.getCategories());
+        return new ProductDto(product, product.getCategories());
+    }
+
+    public static Category createCategory(){
+        return new Category(2L, "Electronics");
+
     }
 }

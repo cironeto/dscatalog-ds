@@ -35,21 +35,21 @@ class ProductRepositoryTest {
 
 
     @Test
-    public void deleteShouldDeleteObjectWhenIdExists(){
+    void deleteShouldDeleteObjectWhenIdExists(){
         productRepository.deleteById(existingId);
         Optional<Product> result = productRepository.findById(existingId);
         Assertions.assertTrue(result.isEmpty());
     }
 
     @Test
-    public void deleteShouldThrowExceptionWhenIdDoesNotExists(){
+    void deleteShouldThrowExceptionWhenIdDoesNotExists(){
         Assertions.assertThrows(EmptyResultDataAccessException.class,() -> {
             productRepository.deleteById(notExistingId);
         });
     }
 
     @Test
-    public void saveShouldPersistWhitAutoincrementWhenIdIsNull(){
+    void saveShouldPersistWhitAutoincrementWhenIdIsNull(){
         product.setId(null);
         product = productRepository.save(product);
         Assertions.assertNotNull(product);
@@ -57,13 +57,13 @@ class ProductRepositoryTest {
     }
 
     @Test
-    public void findByIdShouldReturnNotEmptyOptionalWhenIdExists(){
+    void findByIdShouldReturnNotEmptyOptionalWhenIdExists(){
         Optional<Product> optional = productRepository.findById(existingId);
         Assertions.assertFalse(optional.isEmpty());
     }
 
     @Test
-    public void findByIdShouldReturnEmptyOptionalWhenIdNotExists(){
+    void findByIdShouldReturnEmptyOptionalWhenIdNotExists(){
         Optional<Product> optional = productRepository.findById(notExistingId);
         Assertions.assertTrue(optional.isEmpty());
     }

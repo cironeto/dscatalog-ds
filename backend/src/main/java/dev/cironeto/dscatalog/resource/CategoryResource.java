@@ -1,6 +1,6 @@
 package dev.cironeto.dscatalog.resource;
 
-import dev.cironeto.dscatalog.dto.CategoryDTO;
+import dev.cironeto.dscatalog.dto.CategoryDto;
 import dev.cironeto.dscatalog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,19 +19,19 @@ public class CategoryResource {
     private CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
-        Page<CategoryDTO> list = categoryService.findAllPaged(pageable);
+    public ResponseEntity<Page<CategoryDto>> findAll(Pageable pageable) {
+        Page<CategoryDto> list = categoryService.findAllPaged(pageable);
         return ResponseEntity.ok(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
-        CategoryDTO dto = categoryService.findById(id);
+    public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
+        CategoryDto dto = categoryService.findById(id);
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> save(@RequestBody CategoryDTO dto) {
+    public ResponseEntity<CategoryDto> save(@RequestBody CategoryDto dto) {
         dto = categoryService.save(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -42,7 +42,7 @@ public class CategoryResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> replace(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+    public ResponseEntity<CategoryDto> replace(@PathVariable Long id, @RequestBody CategoryDto dto) {
         dto = categoryService.replace(id, dto);
         return ResponseEntity.ok().body(dto);
     }

@@ -2,19 +2,19 @@ package dev.cironeto.dscatalog.dto;
 
 import dev.cironeto.dscatalog.entity.Category;
 
-public class CategoryDTO {
+public class CategoryDto {
     private Long id;
     private String name;
 
-    public CategoryDTO() {
+    public CategoryDto() {
     }
 
-    public CategoryDTO(Long id, String name) {
+    public CategoryDto(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public CategoryDTO(Category category){
+    public CategoryDto(Category category){
         this.id = category.getId();
         this.name = category.getName();
     }

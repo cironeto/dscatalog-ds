@@ -1,7 +1,7 @@
 package dev.cironeto.dscatalog.service;
 
-import dev.cironeto.dscatalog.dto.CategoryDTO;
-import dev.cironeto.dscatalog.dto.ProductDTO;
+import dev.cironeto.dscatalog.dto.CategoryDto;
+import dev.cironeto.dscatalog.dto.ProductDto;
 import dev.cironeto.dscatalog.entity.Category;
 import dev.cironeto.dscatalog.entity.Product;
 import dev.cironeto.dscatalog.repository.CategoryRepository;
@@ -29,33 +29,33 @@ public class ProductService {
     private CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAllPaged(Pageable pageable) {
+    public Page<ProductDto> findAllPaged(Pageable pageable) {
         Page<Product> list = productRepository.findAll(pageable);
-        return list.map(ProductDTO::new);
+        return list.map(ProductDto::new);
     }
 
     @Transactional(readOnly = true)
-    public ProductDTO findById(Long id) {
+    public ProductDto findById(Long id) {
         Optional<Product> obj = productRepository.findById(id);
         Product entity = obj.orElseThrow(() -> new ResourceNotFoundException("Not found"));
-        return new ProductDTO(entity, entity.getCategories());
+        return new ProductDto(entity, entity.getCategories());
     }
 
     @Transactional
-    public ProductDTO save(ProductDTO dto) {
+    public ProductDto save(ProductDto dto) {
         Product entity = new Product();
         copyDtoToEntity(dto, entity);
         entity = productRepository.save(entity);
-        return new ProductDTO(entity);
+        return new ProductDto(entity);
     }
 
     @Transactional
-    public ProductDTO replace(Long id, ProductDTO dto) {
+    public ProductDto replace(Long id, ProductDto dto) {
         try {
             Product entity = productRepository.getOne(id);
             copyDtoToEntity(dto, entity);
             entity = productRepository.save(entity);
-            return new ProductDTO(entity);
+            return new ProductDto(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("ID " + id + " not found");
         }
@@ -72,7 +72,7 @@ public class ProductService {
         }
     }
 
-    private void copyDtoToEntity(ProductDTO dto, Product entity){
+    private void copyDtoToEntity(ProductDto dto, Product entity){
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setDate(dto.getDate());
@@ -80,7 +80,7 @@ public class ProductService {
         entity.setPrice(dto.getPrice());
 
         entity.getCategories().clear();
-        for (CategoryDTO catDto : dto.getCategories()){
+        for (CategoryDto catDto : dto.getCategories()){
             Category category = categoryRepository.getOne(catDto.getId());
             entity.getCategories().add(category);
         }

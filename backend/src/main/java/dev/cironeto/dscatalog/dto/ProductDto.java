@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class ProductDTO implements Serializable {
+public class ProductDto implements Serializable {
     private Long id;
     private String name;
     private String description;
@@ -18,12 +18,12 @@ public class ProductDTO implements Serializable {
     private String imgUrl;
     private Instant date;
 
-    private List<CategoryDTO> categories = new ArrayList<>();
+    private List<CategoryDto> categories = new ArrayList<>();
 
-    public ProductDTO() {
+    public ProductDto() {
     }
 
-    public ProductDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
+    public ProductDto(Long id, String name, String description, Double price, String imgUrl, Instant date) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,7 +32,7 @@ public class ProductDTO implements Serializable {
         this.date = date;
     }
 
-    public ProductDTO(Product entity){
+    public ProductDto(Product entity){
         this.id = entity.getId();
         this.name = entity.getName();
         this.description = entity.getDescription();
@@ -41,9 +41,9 @@ public class ProductDTO implements Serializable {
         this.date = entity.getDate();
     }
 
-    public ProductDTO(Product entity, Set<Category> categories){
+    public ProductDto(Product entity, Set<Category> categories){
         this(entity);
-        categories.forEach(cat -> this.categories.add(new CategoryDTO(cat)));
+        categories.forEach(cat -> this.categories.add(new CategoryDto(cat)));
     }
 
     public Long getId() {
@@ -94,11 +94,11 @@ public class ProductDTO implements Serializable {
         this.date = date;
     }
 
-    public List<CategoryDTO> getCategories() {
+    public List<CategoryDto> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<CategoryDTO> categories) {
+    public void setCategories(List<CategoryDto> categories) {
         this.categories = categories;
     }
 }
