@@ -2,7 +2,6 @@ package dev.cironeto.dscatalog.service;
 
 import dev.cironeto.dscatalog.dto.ProductDto;
 import dev.cironeto.dscatalog.repository.ProductRepository;
-import dev.cironeto.dscatalog.service.exception.DatabaseException;
 import dev.cironeto.dscatalog.service.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,14 +25,12 @@ public class ProductServiceIntegrationTest {
 
     private long existingId;
     private long nonExistingId;
-    private long dependentId;
     private int countTotalProducts;
 
     @BeforeEach
     void setUp() {
         existingId = 1L;
         nonExistingId = 100L;
-        dependentId = 5L;
         countTotalProducts = 25;
     }
 
