@@ -169,5 +169,5 @@ class ProductResourceTest {
         result.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
         result.andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
     }
-//
+
 }
