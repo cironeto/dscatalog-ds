@@ -56,16 +56,16 @@ class ProductResourceIntegrationTest {
     void updateShouldReturnProductDtoWhenIdExists() throws Exception {
         ProductDto productDto = Factory.createProductDto();
         String jsonBody = objectMapper.writeValueAsString(productDto);
-        
+
         String expectedName = productDto.getName();
         String expectedDescription = productDto.getDescription();
 
         ResultActions result =
                 mockMvc.perform(MockMvcRequestBuilders
-                .put("/products/{id}", existingId)
-                .content(jsonBody)
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                        .put("/products/{id}", existingId)
+                        .content(jsonBody)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(MockMvcResultMatchers.status().isOk());
         result.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(existingId));
@@ -88,8 +88,4 @@ class ProductResourceIntegrationTest {
         result.andExpect(MockMvcResultMatchers.status().isNotFound());
 
     }
-
-
-
-
 }

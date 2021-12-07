@@ -2,7 +2,9 @@ package dev.cironeto.dscatalog.dto;
 
 import dev.cironeto.dscatalog.entity.Category;
 
-public class CategoryDto {
+import java.io.Serializable;
+
+public class CategoryDto implements Serializable {
     private Long id;
     private String name;
 
