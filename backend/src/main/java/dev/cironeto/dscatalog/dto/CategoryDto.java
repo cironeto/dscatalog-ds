@@ -5,6 +5,8 @@ import dev.cironeto.dscatalog.entity.Category;
 import java.io.Serializable;
 
 public class CategoryDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Long id;
     private String name;
 
@@ -17,8 +19,8 @@ public class CategoryDto implements Serializable {
     }
 
     public CategoryDto(Category category){
-        this.id = category.getId();
-        this.name = category.getName();
+        id = category.getId();
+        name = category.getName();
     }
 
     public Long getId() {

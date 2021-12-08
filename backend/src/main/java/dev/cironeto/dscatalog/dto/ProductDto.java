@@ -11,13 +11,14 @@ import java.util.List;
 import java.util.Set;
 
 public class ProductDto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Long id;
     private String name;
     private String description;
     private Double price;
     private String imgUrl;
     private Instant date;
-
     private List<CategoryDto> categories = new ArrayList<>();
 
     public ProductDto() {
@@ -33,12 +34,12 @@ public class ProductDto implements Serializable {
     }
 
     public ProductDto(Product entity){
-        this.id = entity.getId();
-        this.name = entity.getName();
-        this.description = entity.getDescription();
-        this.price = entity.getPrice();
-        this.imgUrl = entity.getImgUrl();
-        this.date = entity.getDate();
+        id = entity.getId();
+        name = entity.getName();
+        description = entity.getDescription();
+        price = entity.getPrice();
+        imgUrl = entity.getImgUrl();
+        date = entity.getDate();
     }
 
     public ProductDto(Product entity, Set<Category> categories){

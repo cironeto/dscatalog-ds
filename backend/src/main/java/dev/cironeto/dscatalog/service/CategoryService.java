@@ -59,6 +59,7 @@ public class CategoryService {
     public void delete(Long id) {
         try {
             categoryRepository.deleteById(id);
+            categoryRepository.flush();
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("ID " + id + " not found");
         } catch (DataIntegrityViolationException e) {

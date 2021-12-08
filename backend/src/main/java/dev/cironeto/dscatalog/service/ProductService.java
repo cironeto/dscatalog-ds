@@ -65,6 +65,7 @@ public class ProductService {
     public void delete(Long id) {
         try {
             productRepository.deleteById(id);
+            productRepository.flush();
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException("ID " + id + " not found");
         } catch (DataIntegrityViolationException e) {
