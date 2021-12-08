@@ -4,6 +4,10 @@ package dev.cironeto.dscatalog.dto;
 import dev.cironeto.dscatalog.entity.Category;
 import dev.cironeto.dscatalog.entity.Product;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,10 +18,17 @@ public class ProductDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @Size(min = 5, max = 50, message = "Name must have between 5 and 50 chars")
+    @NotBlank(message = "Required field")
     private String name;
     private String description;
+
+    @Positive(message = "Enter a positive value")
     private Double price;
     private String imgUrl;
+
+    @PastOrPresent(message = "Date must be present or past")
     private Instant date;
     private List<CategoryDto> categories = new ArrayList<>();
 

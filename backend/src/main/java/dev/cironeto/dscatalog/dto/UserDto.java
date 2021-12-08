@@ -2,6 +2,8 @@ package dev.cironeto.dscatalog.dto;
 
 import dev.cironeto.dscatalog.entity.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,8 +13,12 @@ public class UserDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
+
+    @NotBlank(message = "Required field")
     private String firstName;
     private String lastName;
+
+    @Email(message = "Enter valid email")
     private String email;
     Set<RoleDto> roles = new HashSet<>();
 
