@@ -1,17 +1,14 @@
 package dev.cironeto.dscatalog.resource;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.cironeto.dscatalog.dto.ProductDto;
 import dev.cironeto.dscatalog.factory.Factory;
 import dev.cironeto.dscatalog.service.ProductService;
 import dev.cironeto.dscatalog.service.exception.DatabaseException;
 import dev.cironeto.dscatalog.service.exception.ResourceNotFoundException;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -56,9 +53,9 @@ class ProductResourceTest {
         Mockito.when(productService.findById(existingId)).thenReturn(productDto);
         Mockito.when(productService.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);
 
-        Mockito.when(productService.replace(ArgumentMatchers.eq(existingId), ArgumentMatchers.any()))
+        Mockito.when(productService.update(ArgumentMatchers.eq(existingId), ArgumentMatchers.any()))
                 .thenReturn(productDto);
-        Mockito.when(productService.replace(ArgumentMatchers.eq(nonExistingId), ArgumentMatchers.any()))
+        Mockito.when(productService.update(ArgumentMatchers.eq(nonExistingId), ArgumentMatchers.any()))
                 .thenThrow(ResourceNotFoundException.class);
 
         Mockito.doNothing().when(productService).delete(existingId);

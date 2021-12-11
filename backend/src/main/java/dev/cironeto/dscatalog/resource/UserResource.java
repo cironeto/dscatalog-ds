@@ -2,6 +2,7 @@ package dev.cironeto.dscatalog.resource;
 
 import dev.cironeto.dscatalog.dto.UserDto;
 import dev.cironeto.dscatalog.dto.UserInsertDto;
+import dev.cironeto.dscatalog.dto.UserUpdateDto;
 import dev.cironeto.dscatalog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,9 +45,9 @@ public class UserResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDto> replace(@PathVariable Long id, @Valid @RequestBody UserDto dto) {
-        dto = userService.replace(id, dto);
-        return ResponseEntity.ok().body(dto);
+    public ResponseEntity<UserDto> update(@PathVariable Long id, @Valid @RequestBody UserUpdateDto dto) {
+       UserDto newDto = userService.update(id, dto);
+        return ResponseEntity.ok().body(newDto);
     }
 
     @DeleteMapping(value = "/{id}")

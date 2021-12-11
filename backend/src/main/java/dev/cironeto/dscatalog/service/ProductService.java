@@ -50,7 +50,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDto replace(Long id, ProductDto dto) {
+    public ProductDto update(Long id, ProductDto dto) {
         try {
             Product entity = productRepository.getOne(id);
             copyDtoToEntity(dto, entity);

@@ -79,7 +79,7 @@ class ProductServiceTest {
 
     @Test
     void replaceShouldReturnProductDtoWhenIdExists(){
-        ProductDto dto = productService.replace(existingId, productDto);
+        ProductDto dto = productService.update(existingId, productDto);
         Assertions.assertNotNull(productDto);
 
         Mockito.verify(productRepository).getOne(existingId);
@@ -88,7 +88,7 @@ class ProductServiceTest {
 
     @Test
     void replaceShouldThrowsResourceNotFoundExceptionWhenIdDoesNotExist(){
-        Assertions.assertThrows(ResourceNotFoundException.class, () -> productService.replace(nonExistingId, productDto));
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> productService.update(nonExistingId, productDto));
         Mockito.verify(productRepository).getOne(nonExistingId);
 
     }
