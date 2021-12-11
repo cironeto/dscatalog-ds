@@ -2,7 +2,7 @@ package dev.cironeto.dscatalog.service;
 
 import dev.cironeto.dscatalog.dto.RoleDto;
 import dev.cironeto.dscatalog.dto.UserDto;
-import dev.cironeto.dscatalog.dto.UserInsertionDto;
+import dev.cironeto.dscatalog.dto.UserInsertDto;
 import dev.cironeto.dscatalog.entity.Role;
 import dev.cironeto.dscatalog.entity.User;
 import dev.cironeto.dscatalog.repository.RoleRepository;
@@ -47,7 +47,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto save(UserInsertionDto dto) {
+    public UserDto save(UserInsertDto dto) {
         try {
             User entity = new User();
             copyDtoToEntity(dto, entity);

@@ -1,7 +1,7 @@
 package dev.cironeto.dscatalog.resource;
 
 import dev.cironeto.dscatalog.dto.UserDto;
-import dev.cironeto.dscatalog.dto.UserInsertionDto;
+import dev.cironeto.dscatalog.dto.UserInsertDto;
 import dev.cironeto.dscatalog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +33,7 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> save(@Valid @RequestBody UserInsertionDto dto) {
+    public ResponseEntity<UserDto> save(@Valid @RequestBody UserInsertDto dto) {
         UserDto newDto = userService.save(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

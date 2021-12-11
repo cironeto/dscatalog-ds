@@ -1,11 +1,14 @@
 package dev.cironeto.dscatalog.dto;
 
-public class UserInsertionDto extends UserDto {
+import dev.cironeto.dscatalog.service.validation.UserInsertValid;
+
+@UserInsertValid
+public class UserInsertDto extends UserDto {
     private static final long serialVersionUID = 1L;
 
     private String password;
 
-    public UserInsertionDto() {
+    public UserInsertDto() {
         super();
     }
 
