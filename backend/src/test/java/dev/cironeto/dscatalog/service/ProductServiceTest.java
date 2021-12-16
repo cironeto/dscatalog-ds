@@ -78,7 +78,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void replaceShouldReturnProductDtoWhenIdExists(){
+    void replace_ReturnProductDto_WhenIdExists(){
         ProductDto dto = productService.update(existingId, productDto);
         Assertions.assertNotNull(productDto);
 
@@ -87,7 +87,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void replaceShouldThrowsResourceNotFoundExceptionWhenIdDoesNotExist(){
+    void replace_ThrowsResourceNotFoundException_WhenIdDoesNotExist(){
         Assertions.assertThrows(ResourceNotFoundException.class, () -> productService.update(nonExistingId, productDto));
         Mockito.verify(productRepository).getOne(nonExistingId);
 
@@ -95,13 +95,13 @@ class ProductServiceTest {
 
 
     @Test
-    void findByIdShouldThrowsResourceNotFoundExceptionWhenIdDoesNotExist() {
+    void findById_ThrowsResourceNotFoundException_WhenIdDoesNotExist() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> productService.findById(nonExistingId));
         Mockito.verify(productRepository).findById(nonExistingId);
     }
 
     @Test
-    void findByIdShouldReturnProductDtoWhenIdExists() {
+    void findById_ReturnProductDto_WhenIdExists() {
         ProductDto productDto = productService.findById(existingId);
         Assertions.assertNotNull(productDto);
 
@@ -109,7 +109,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void findAllPagedShouldReturnPage() {
+    void findAllPaged_ReturnPage() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<ProductDto> page = productService.findAllPaged(pageable);
 
@@ -118,19 +118,19 @@ class ProductServiceTest {
     }
 
     @Test
-    void deleteShouldDoNothingWhenIdExists() {
+    void delete_DoNothing_WhenIdExists() {
         Assertions.assertDoesNotThrow(() -> productService.delete(existingId));
         Mockito.verify(productRepository).deleteById(existingId);
     }
 
     @Test
-    void deleteShouldThrowsResourceNotFoundExceptionWhenIdDoesNotExist() {
+    void delete_ThrowsResourceNotFoundException_WhenIdDoesNotExist() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> productService.delete(nonExistingId));
         Mockito.verify(productRepository).deleteById(nonExistingId);
     }
 
     @Test
-    void deleteShouldThrowsDatabaseExceptionWhenIdDependsOnOtherObject() {
+    void delete_ThrowsDatabaseException_WhenIdDependsOnOtherObject() {
         Assertions.assertThrows(DatabaseException.class, () -> productService.delete(dependentId));
         Mockito.verify(productRepository).deleteById(dependentId);
     }

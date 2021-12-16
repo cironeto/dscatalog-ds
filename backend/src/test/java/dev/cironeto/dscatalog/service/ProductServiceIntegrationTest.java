@@ -35,18 +35,18 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
-    void deleteShouldDeleteResourceWhenIdExists() {
+    void delete_DeleteResource_WhenIdExists() {
         productService.delete(existingId);
         Assertions.assertEquals((countTotalProducts - 1), productRepository.count());
     }
 
     @Test
-    void deleteShouldThrowsResourceNotFoundExceptionWhenDoesNotExist() {
+    void delete_ThrowsResourceNotFoundException_WhenDoesNotExist() {
         Assertions.assertThrows(ResourceNotFoundException.class, () -> productService.delete(nonExistingId));
     }
 
     @Test
-    void findAllPagedShouldReturnPage() {
+    void findAllPaged_ReturnPage() {
         PageRequest pageRequest = PageRequest.of(0, 10);
         Page<ProductDto> result = productService.findAllPaged(pageRequest);
 
@@ -57,7 +57,7 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
-    void findAllPagedShouldReturnEmptyWhenPageDoesNotExist() {
+    void findAllPaged_ReturnEmpty_WhenPageDoesNotExist() {
         PageRequest pageRequest = PageRequest.of(50, 10);
         Page<ProductDto> result = productService.findAllPaged(pageRequest);
 
@@ -65,7 +65,7 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
-    void findAllPagedShouldReturnSortedPageWhenSortedByName() {
+    void findAllPaged_ReturnSortedPage_WhenSortedByName() {
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.by("name"));
         Page<ProductDto> result = productService.findAllPaged(pageRequest);
 

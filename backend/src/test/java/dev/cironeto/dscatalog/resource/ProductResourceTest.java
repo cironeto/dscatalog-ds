@@ -67,7 +67,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void deleteShouldReturnBadRequestWhenIdDependsOnOtherObject() throws Exception {
+    void delete_ReturnBadRequest_WhenIdDependsOnOtherObject() throws Exception {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .delete("/products/{id}", dependentId)
                 .accept(MediaType.APPLICATION_JSON));
@@ -76,7 +76,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void deleteShouldReturnNotFoundWhenIdDoesNotExist() throws Exception {
+    void delete_ReturnNotFound_WhenIdDoesNotExist() throws Exception {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .delete("/products/{id}", nonExistingId)
                 .accept(MediaType.APPLICATION_JSON));
@@ -85,7 +85,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void deleteShouldReturnNoContentWhenIdExists() throws Exception {
+    void delete_ReturnNoContent_WhenIdExists() throws Exception {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .delete("/products/{id}", existingId)
                 .accept(MediaType.APPLICATION_JSON));
@@ -95,7 +95,7 @@ class ProductResourceTest {
 
 
     @Test
-    void findAllShouldReturnPage() throws Exception {
+    void findAll_ReturnPage() throws Exception {
         ResultActions result =
                 mockMvc.perform(MockMvcRequestBuilders
                         .get("/products")
@@ -105,7 +105,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void findByIdShouldReturnProductDtoWhenIdExists() throws Exception {
+    void findById_ReturnProductDto_WhenIdExists() throws Exception {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .get("/products/{id}", existingId)
                 .accept(MediaType.APPLICATION_JSON));
@@ -116,7 +116,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void findByIdShouldReturnNotFoundWhenIdDoesNotExists() throws Exception {
+    void findById_ReturnNotFound_WhenIdDoesNotExists() throws Exception {
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
                 .get("/products/{id}", nonExistingId)
                 .accept(MediaType.APPLICATION_JSON));
@@ -125,7 +125,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void replaceShouldReturnProductDtoWhenIdExists() throws Exception {
+    void replace_ReturnProductDto_WhenIdExists() throws Exception {
         String jsonBody = objectMapper.writeValueAsString(productDto);
 
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
@@ -140,7 +140,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void replaceShouldReturnNotFoundWhenIDoesNotExist() throws Exception {
+    void replace_ReturnNotFound_WhenIDoesNotExist() throws Exception {
         String jsonBody = objectMapper.writeValueAsString(productDto);
 
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
@@ -153,7 +153,7 @@ class ProductResourceTest {
     }
 
     @Test
-    void saveShouldReturnProductDtoAndCreatedStatus() throws Exception {
+    void save_ReturnProductDtoAndCreatedStatus() throws Exception {
         String jsonBody = objectMapper.writeValueAsString(productDto);
 
         ResultActions result = mockMvc.perform(MockMvcRequestBuilders
@@ -166,7 +166,5 @@ class ProductResourceTest {
         result.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
         result.andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
     }
-
-    //testes
 
 }
