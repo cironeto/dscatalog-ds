@@ -21,7 +21,7 @@ public class Category implements Serializable {
     private Instant createdAt;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant updateAt;
+    private Instant updatedAt;
 
     @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
@@ -41,15 +41,15 @@ public class Category implements Serializable {
 
     @PreUpdate
     public void preUpdate() {
-        updateAt = Instant.now();
+        updatedAt = Instant.now();
     }
 
     public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public Instant getUpdateAt() {
-        return updateAt;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
     public Long getId() {

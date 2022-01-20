@@ -4,11 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4d3be8b-d858-418c-8da7-7bb05ebb4af8" name="Changes" comment="" />
+    <list default="true" id="a4d3be8b-d858-418c-8da7-7bb05ebb4af8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application-test.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="20hxGiXzo8w4IY5tl9zloTw1K5W" />
   <component name="ProjectViewState">
@@ -62,6 +68,7 @@
       <updated>1636510527892</updated>
       <workItem from="1636510529724" duration="543000" />
       <workItem from="1636511097402" duration="181000" />
+      <workItem from="1642691646226" duration="619000" />
     </task>
     <servers />
   </component>
