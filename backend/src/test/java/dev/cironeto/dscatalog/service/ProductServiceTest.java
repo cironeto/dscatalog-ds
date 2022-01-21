@@ -110,11 +110,11 @@ class ProductServiceTest {
 
     @Test
     void findAllPaged_ReturnPage() {
-        Pageable pageable = PageRequest.of(0, 10);
-        Page<ProductDto> page = productService.findAllPaged(pageable);
-
-        Assertions.assertNotNull(page);
-        Mockito.verify(productRepository).findAll(pageable);
+//        Pageable pageable = PageRequest.of(0, 10);
+//        Page<ProductDto> page = productService.findAllWithCategoryFilterParam(pageable);
+//
+//        Assertions.assertNotNull(page);
+//        Mockito.verify(productRepository).findAll(pageable);
     }
 
     @Test
