@@ -70,7 +70,10 @@ class ProductServiceTest {
 
         Mockito.when(productRepository.save(ArgumentMatchers.any())).thenReturn(product);
 
-        Mockito.when(productRepository.findAll((Pageable) ArgumentMatchers.any())).thenReturn(page);
+        Mockito.when(productRepository.findAllWithParams(
+                ArgumentMatchers.any(),
+                ArgumentMatchers.any(),
+                ArgumentMatchers.any())).thenReturn(page);
 
         Mockito.doNothing().when(productRepository).deleteById(existingId);
         Mockito.doThrow(EmptyResultDataAccessException.class).when(productRepository).deleteById(nonExistingId);
@@ -110,11 +113,11 @@ class ProductServiceTest {
 
     @Test
     void findAllPaged_ReturnPage() {
-//        Pageable pageable = PageRequest.of(0, 10);
-//        Page<ProductDto> page = productService.findAllWithCategoryFilterParam(pageable);
-//
-//        Assertions.assertNotNull(page);
-//        Mockito.verify(productRepository).findAll(pageable);
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<ProductDto> page = productService
+                .findAllWithParams(0L, "", pageable);
+
+        Assertions.assertNotNull(page);
     }
 
     @Test

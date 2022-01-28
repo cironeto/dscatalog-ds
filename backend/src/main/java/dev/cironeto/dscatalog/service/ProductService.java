@@ -33,8 +33,10 @@ public class ProductService {
     @Transactional(readOnly = true)
     public Page<ProductDto> findAllWithParams(Long categoryId, String name, Pageable pageable) {
         List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
-        Page<Product> list = productRepository.findAllWithParams(categories, name, pageable);
-        return list.map(ProductDto::new);
+        Page<Product> page = productRepository.findAllWithParams(categories, name, pageable);
+        productRepository.findProductWithCategories(page.getContent());
+
+        return page.map(p -> new ProductDto(p, p.getCategories()));
     }
 
     @Transactional(readOnly = true)
